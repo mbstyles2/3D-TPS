@@ -1,0 +1,153 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.35, 0.5, 0.3, 1 )
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.55, 0.5, 0.4, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.72, 0.4, 0.2, 1 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.4, 0.38, 0.35, 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.65, 0.58, 0.42, 1 )
+
+[node name="NriHeights" type="Spatial"]
+
+[node name="TerraceLow" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
+use_collision = true
+width = 40.0
+height = 0.5
+depth = 20.0
+material = SubResource( 5 )
+
+[node name="StepsToMid" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.85, -0.5, 0, 0.5, 0.85, 0, 1.2, -1 )
+use_collision = true
+width = 12.0
+height = 0.4
+depth = 5.0
+material = SubResource( 1 )
+
+[node name="TerraceMid" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -14 )
+use_collision = true
+width = 34.0
+height = 0.5
+depth = 22.0
+material = SubResource( 1 )
+
+[node name="StepsToHigh" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.85, -0.5, 0, 0.5, 0.85, 0, 3.7, -24 )
+use_collision = true
+width = 10.0
+height = 0.4
+depth = 5.0
+material = SubResource( 1 )
+
+[node name="TerraceHigh" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -36 )
+use_collision = true
+width = 26.0
+height = 0.5
+depth = 20.0
+material = SubResource( 1 )
+
+[node name="CentralShrine" type="Spatial" parent="."]
+
+[node name="Altar" type="CSGCylinder" parent="CentralShrine"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, -36 )
+use_collision = true
+radius = 2.0
+height = 1.4
+material = SubResource( 3 )
+
+[node name="RoofPost1" type="CSGCylinder" parent="CentralShrine"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 6.9, -38.5 )
+use_collision = true
+radius = 0.15
+height = 3.0
+material = SubResource( 1 )
+
+[node name="RoofPost2" type="CSGCylinder" parent="CentralShrine"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 6.9, -38.5 )
+use_collision = true
+radius = 0.15
+height = 3.0
+material = SubResource( 1 )
+
+[node name="RoofPost3" type="CSGCylinder" parent="CentralShrine"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 6.9, -33.5 )
+use_collision = true
+radius = 0.15
+height = 3.0
+material = SubResource( 1 )
+
+[node name="RoofPost4" type="CSGCylinder" parent="CentralShrine"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 6.9, -33.5 )
+use_collision = true
+radius = 0.15
+height = 3.0
+material = SubResource( 1 )
+
+[node name="RoofCap" type="CSGCylinder" parent="CentralShrine"]
+transform = Transform( 0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 8.6, -36 )
+use_collision = true
+radius = 3.6
+height = 3.0
+sides = 4
+material = SubResource( 4 )
+
+[node name="PriestHouses" type="Spatial" parent="."]
+
+[node name="House1" type="CSGBox" parent="PriestHouses"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.7, -12 )
+use_collision = true
+width = 4.5
+height = 2.4
+depth = 4.5
+material = SubResource( 2 )
+
+[node name="House2" type="CSGBox" parent="PriestHouses"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.7, -12 )
+use_collision = true
+width = 4.5
+height = 2.4
+depth = 4.5
+material = SubResource( 2 )
+
+[node name="House3" type="CSGBox" parent="PriestHouses"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.2, 6 )
+use_collision = true
+width = 4.0
+height = 2.4
+depth = 4.0
+material = SubResource( 2 )
+
+[node name="StandingStones" type="Spatial" parent="."]
+
+[node name="Stone1" type="CSGCylinder" parent="StandingStones"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3.8, -8 )
+use_collision = true
+radius = 0.4
+height = 2.6
+material = SubResource( 4 )
+
+[node name="Stone2" type="CSGCylinder" parent="StandingStones"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.8, -8 )
+use_collision = true
+radius = 0.4
+height = 2.6
+material = SubResource( 4 )
+
+[node name="MeetingHall" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 16 )
+use_collision = true
+width = 10.0
+height = 2.8
+depth = 6.0
+material = SubResource( 2 )

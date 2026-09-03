@@ -1,0 +1,92 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://AnimationController.gd" type="Script" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://CameraRig.gd" type="Script" id=3]
+[ext_resource path="res://player/Idle.fbx" type="PackedScene" id=4]
+[ext_resource path="res://player/walk.tres" type="Animation" id=5]
+[ext_resource path="res://player/Idle.tres" type="Animation" id=6]
+[ext_resource path="res://player/jump.tres" type="Animation" id=7]
+[ext_resource path="res://player/run.tres" type="Animation" id=8]
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.4, 1, 0.4 )
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "jump"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "run"
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+xfade_time = 0.25
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachine" id=9]
+states/Idle/node = SubResource( 10 )
+states/Idle/position = Vector2( 200, 80 )
+states/Jump/node = SubResource( 12 )
+states/Jump/position = Vector2( 400, 260 )
+states/Run/node = SubResource( 11 )
+states/Run/position = Vector2( 600, 80 )
+states/Walk/node = SubResource( 6 )
+states/Walk/position = Vector2( 400, 80 )
+transitions = [ "Idle", "Walk", SubResource( 14 ), "Walk", "Idle", SubResource( 14 ), "Walk", "Run", SubResource( 14 ), "Run", "Walk", SubResource( 14 ), "Idle", "Jump", SubResource( 15 ), "Walk", "Jump", SubResource( 15 ), "Run", "Jump", SubResource( 15 ), "Jump", "Idle", SubResource( 16 ) ]
+graph_offset = Vector2( -57.2146, 53.0147 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=17]
+
+[sub_resource type="SpatialMaterial" id=19]
+albedo_color = Color( 0.862745, 0.176471, 0.176471, 1 )
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 4 )
+
+[node name="Model" type="Spatial" parent="."]
+script = ExtResource( 1 )
+
+[node name="AnimationTree" type="AnimationTree" parent="Model"]
+tree_root = SubResource( 9 )
+anim_player = NodePath("../CharacterMesh/RootNode/AnimationPlayer")
+active = true
+parameters/playback = SubResource( 17 )
+
+[node name="CharacterMesh" parent="Model" instance=ExtResource( 4 )]
+
+[node name="Beta_Surface" parent="Model/CharacterMesh/RootNode" index="2"]
+material/0 = SubResource( 19 )
+
+[node name="AnimationPlayer" parent="Model/CharacterMesh/RootNode" index="4"]
+anims/Idle = ExtResource( 6 )
+anims/jump = ExtResource( 7 )
+anims/run = ExtResource( 8 )
+anims/walk = ExtResource( 5 )
+
+[node name="CameraYaw" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
+script = ExtResource( 3 )
+
+[node name="CameraPitch" type="Spatial" parent="CameraYaw"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
+
+[node name="SpringArm" type="SpringArm" parent="CameraYaw/CameraPitch"]
+spring_length = 4.0
+
+[node name="Camera" type="Camera" parent="CameraYaw/CameraPitch/SpringArm"]
+
+[editable path="Model/CharacterMesh"]
